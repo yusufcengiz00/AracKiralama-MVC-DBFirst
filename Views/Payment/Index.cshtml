@@ -1,0 +1,116 @@
+﻿@model IEnumerable<CarRentalManagementSystem_DBFirst.Models.Payment>
+
+@{
+    ViewData["Title"] = "Ödeme Kayıtları";
+}
+
+<div class="container-fluid px-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Panel</a></li>
+        <li class="breadcrumb-item active">Ödemeler</li>
+    </ol>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white">
+            <div>
+                <i class="fas fa-lira-sign me-1"></i>
+                Alınan Ödemeler
+            </div>
+            <a asp-action="Create" class="btn btn-success btn-sm">
+                <i class="fas fa-plus"></i> Yeni Ödeme Al
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="mb-3">
+                <div class="input-group" style="max-width: 450px;">
+                    <input type="text" name="searchString" class="form-control"
+                           placeholder="Müşteri adı veya plaka ile ara..." value="@ViewBag.CurrentFilter" />
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Ara
+                    </button>
+                    @if (!string.IsNullOrEmpty(ViewBag.CurrentFilter))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-danger">Temizle</a>
+                    }
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Ödeme ID</th>
+                            <th>Sözleşme Bilgisi</th>
+                            <th>Müşteri</th>
+                            <th>Ödeme Tarihi</th>
+                            <th>Ödeme Yöntemi</th>
+                            <th>Miktar</th>
+                            <th>Durum</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@item.PaymentId</td>
+                                    <td>
+                                        @if (item.Rental != null && item.Rental.Vehicle != null)
+                                        {
+                                            <span class="fw-bold text-primary">Sözleşme #@item.RentalId</span>
+                                            <br />
+                                            <small class="badge bg-secondary">@item.Rental.Vehicle.PlateNumber</small>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sözleşme Bilgisi Yok</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @(item.Rental?.Customer != null ? $"{item.Rental.Customer.FirstName} {item.Rental.Customer.LastName}" : "Bilinmiyor")
+                                    </td>
+                                    <td>@item.PaymentDate?.ToString("dd.MM.yyyy HH:mm")</td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border">
+                                            <i class="fas fa-credit-card me-1 text-muted"></i> @item.PaymentMethod
+                                        </span>
+                                    </td>
+                                    <td class="fw-bold text-success">@string.Format("{0:C2}", item.Amount)</td>
+                                    <td>
+                                        @if (item.PaymentStatus == true)
+                                        {
+                                            <span class="badge bg-success">Tamamlandı / Alındı</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">İptal / İade Edildi</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.PaymentId" class="btn btn-warning btn-sm" title="Güncelle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.PaymentId" class="btn btn-danger btn-sm" title="Sil">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-4">Ödeme kaydı bulunamadı.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Finansal & Operasyonel Raporlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row g-4 mt-2">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white fw-bold">
+                <i class="fas fa-chart-line me-2 text-warning"></i> Filo ve Operasyon Analizleri
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">En Yüksek Kilometreli Araç</h6>
+                        <small class="text-muted">Filoda en çok yol kat etmiş araç bilgisi.</small>
+                    </div>
+                    <span class="badge bg-secondary p-2">@ViewBag.EnYuksekKmArax</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">En Popüler Kiralama Aracı</h6>
+                        <small class="text-muted">Sözleşmelerde en çok tercih edilen araç.</small>
+                    </div>
+                    <span class="badge bg-primary p-2">@ViewBag.EnPopulerArac</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">En Uzun Kiralama Süresi</h6>
+                        <small class="text-muted">Tek seferde yapılan en uzun kiralama.</small>
+                    </div>
+                    <span class="badge bg-info text-dark p-2">@ViewBag.EnUzunKiralama</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">Müsait Durumdaki Araçlar</h6>
+                        <small class="text-muted">Şu an dükkanda kiralanmayı bekleyen araçlar.</small>
+                    </div>
+                    <span class="badge bg-success p-2">@ViewBag.MusaitAracSayisi</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white fw-bold">
+                <i class="fas fa-wallet me-2 text-success"></i> Müşteri & Finans Analizleri
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">En Sık Kiralama Yapan Müşteri</h6>
+                        <small class="text-muted">Sözleşme adedi en yüksek olan sadık üye.</small>
+                    </div>
+                    <span class="badge bg-purple p-2 text-white bg-opacity-75" style="background-color: #6f42c1;">@ViewBag.EnSadikMusteri</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">Şirket VIP Müşterisi</h6>
+                        <small class="text-muted">Kasaya en yüksek ciro girdisi sağlayan kişi.</small>
+                    </div>
+                    <span class="badge bg-warning text-dark p-2 fw-bold">@ViewBag.VipMusteri</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">Ortalama Günlük Araç Fiyatı</h6>
+                        <small class="text-muted">Filodaki araçların genel fiyat ortalaması.</small>
+                    </div>
+                    <span class="badge bg-light text-dark border p-2">@ViewBag.OrtalamaDailyPrice</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-0 fw-bold">Toplam İade / İptal Edilen Ciro</h6>
+                        <small class="text-muted">İptal edilen sözleşmeler nedeniyle iade edilen tutar.</small>
+                    </div>
+                    <span class="badge bg-danger p-2">@ViewBag.KaybedilenTutar</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

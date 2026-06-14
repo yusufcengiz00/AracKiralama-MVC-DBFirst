@@ -1,0 +1,89 @@
+﻿@model CarRentalManagementSystem_DBFirst.Models.Payment
+
+@{
+    ViewData["Title"] = "Yeni Ödeme Al";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Kasa Yönetimi</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Panel</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Ödemeler</a></li>
+        <li class="breadcrumb-item active">Yeni Ödeme</li>
+    </ol>
+
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-success text-white fw-bold">
+            <i class="fas fa-lira-sign me-1"></i>
+            Yeni Tahsilat / Ödeme Kaydı Oluştur
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="RentalId" class="form-label fw-bold">İlişkili Kiralama Sözleşmesi</label>
+                            <select asp-for="RentalId" class="form-select" asp-items="ViewBag.RentalId">
+                                <option value="">-- Sözleşme Seçiniz --</option>
+                            </select>
+                            <span asp-validation-for="RentalId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PaymentMethod" class="form-label fw-bold">Ödeme Yöntemi</label>
+                            <select asp-for="PaymentMethod" class="form-select">
+                                <option value="Nakit">Nakit</option>
+                                <option value="Kredi Kartı">Kredi Kartı</option>
+                                <option value="EFT / Havale">EFT / Havale</option>
+                            </select>
+                            <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PaymentStatus" class="form-label fw-bold">Ödeme Durumu</label>
+                            <select asp-for="PaymentStatus" class="form-select">
+                                <option value="true">Tamamlandı / Alındı</option>
+                                <option value="false">İptal Edildi / İade</option>
+                            </select>
+                            <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="PaymentDate" class="form-label fw-bold">Ödeme Tarihi</label>
+                            <input asp-for="PaymentDate" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                            <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Amount" class="form-label fw-bold">Alınan Miktar (Tutar)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">₺</span>
+                                <input asp-for="Amount" type="text" class="form-control" placeholder="0.00" />
+                            </div>
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 border-top pt-3 text-end">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> İptal Et ve Dön
+                    </a>
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save"></i> Ödemeyi Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

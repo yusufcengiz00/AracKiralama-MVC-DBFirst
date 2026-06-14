@@ -1,0 +1,71 @@
+﻿@model CarRentalManagementSystem_DBFirst.Models.Customer
+
+@{
+    ViewData["Title"] = "Yeni Müşteri Ekle";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Müşteri Yönetimi</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Panel</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Müşteriler</a></li>
+        <li class="breadcrumb-item active">Yeni Müşteri</li>
+    </ol>
+
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-success text-white fw-bold">
+            <i class="fas fa-user-plus me-1"></i>
+            Yeni Müşteri Profil Kartı Oluştur
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="FirstName" class="form-label fw-bold">Müşteri Adı</label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Örn: Ahmet" required />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="LastName" class="form-label fw-bold">Müşteri Soyadı</label>
+                            <input asp-for="LastName" class="form-control" placeholder="Örn: Yılmaz" required />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label fw-bold">E-Posta Adresi</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="ahmet@example.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Phone" class="form-label fw-bold">Telefon Numarası</label>
+                            <input asp-for="Phone" type="tel" class="form-control" placeholder="0555 XXXXXXX" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 border-top pt-3 text-end">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Vazgeç ve Dön
+                    </a>
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save"></i> Müşteriyi Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

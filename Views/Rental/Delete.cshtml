@@ -1,0 +1,75 @@
+﻿@model CarRentalManagementSystem_DBFirst.Models.Rental
+
+@{
+    ViewData["Title"] = "Kiralama Sözleşmesi Silme Onayı";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Kiralama Yönetimi</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Panel</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Kiralamalar</a></li>
+        <li class="breadcrumb-item active">Sözleşme Sil</li>
+    </ol>
+
+    <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+        <i class="fas fa-exclamation-triangle me-2 fs-4"></i>
+        <div>
+            <strong>Dikkat!</strong> Bu kiralama sözleşmesini silmek üzeresiniz. Bu işlem geri alınamaz. Eğer bu kiralamaya bağlı ödeme kayıtları (Payments) varsa, veritabanı kısıtlamaları nedeniyle silme işlemi başarısız olabilir.
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-danger text-white fw-bold">
+            <i class="fas fa-trash me-1"></i>
+            Kiralama Sözleşmesi Silme Onayı (Sözleşme ID: @Model.RentalId)
+        </div>
+        <div class="card-body">
+            <h5 class="card-title mb-4 text-muted">Silinecek sözleşmeye ait detaylar:</h5>
+
+            <div class="row bg-light p-3 rounded border">
+                <div class="col-md-6 border-end">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-secondary">Müşteri:</dt>
+                        <dd class="col-sm-8 fw-bold">
+                            @(Model.Customer != null ? $"{Model.Customer.FirstName} {Model.Customer.LastName}" : "Müşteri Bilgisi Yok")
+                        </dd>
+
+                        <dt class="col-sm-4 text-secondary">Araç / Plaka:</dt>
+                        <dd class="col-sm-8 fw-bold text-primary">
+                            @(Model.Vehicle != null ? $"{Model.Vehicle.Brand} {Model.Vehicle.Model} ({Model.Vehicle.PlateNumber})" : "Araç Bilgisi Yok")
+                        </dd>
+
+                        <dt class="col-sm-4 text-secondary">Sözleşme Durumu:</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-dark">@Model.RentalStatus</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6 ps-4">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-secondary">Başlangıç Tarihi:</dt>
+                        <dd class="col-sm-8">@Model.StartDate?.ToString("dd.MM.yyyy")</dd>
+
+                        <dt class="col-sm-4 text-secondary">Bitiş Tarihi:</dt>
+                        <dd class="col-sm-8">@Model.EndDate?.ToString("dd.MM.yyyy")</dd>
+
+                        <dt class="col-sm-4 text-secondary">Toplam Tutar:</dt>
+                        <dd class="col-sm-8 fw-bold text-success">@string.Format("{0:C2}", Model.TotalPrice)</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post" class="mt-4 text-end">
+                <input type="hidden" asp-for="RentalId" name="id" />
+
+                <a asp-action="Index" class="btn btn-secondary me-2">
+                    <i class="fas fa-arrow-left"></i> Hayır, İptal Et ve Dön
+                </a>
+                <button type="submit" class="btn btn-danger px-4 fw-bold">
+                    <i class="fas fa-trash-alt"></i> Evet, Bu Sözleşmeyi Sil
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

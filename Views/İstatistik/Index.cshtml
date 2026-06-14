@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Performans Grafikleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-chart-line me-2 text-info"></i> Ödeme Bazlı Gelir Grafiği</span>
+                <span class="badge bg-info text-dark">İşlem Bazlı Canlı Veri</span>
+            </div>
+            <div class="card-body p-4">
+                <div style="position: relative; height:400px; width:100%">
+                    <canvas id="gelirGrafigi"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        var ctx = document.getElementById('gelirGrafigi').getContext('2d');
+
+        // Controller'dan gelen tekil ödeme verileri
+        var etiketler = [@Html.Raw(ViewBag.GrafikEtiketler)];
+        var tutarlar = [@ViewBag.GrafikTutarlar];
+
+        var myChart = new Chart(ctx, {
+        type: 'line', // Çizgi grafiği
+        data: {
+        labels: etiketler,
+        datasets: [{
+        label: 'Ödeme Tutarı (₺)',
+        data: tutarlar,
+        borderColor: 'rgba(13, 110, 253, 1)',
+        backgroundColor: 'rgba(13, 110, 253, 0.15)',
+        borderWidth: 2,
+        tension: 0.3, // Çizgiyi yumuşatır
+        fill: true, // Çizgi altını hafif doldurur
+        pointBackgroundColor: 'rgba(13, 110, 253, 1)',
+        pointRadius: 4,
+        pointHoverRadius: 6
+        }]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+        y: {
+        beginAtZero: true,
+        ticks: {
+        callback: function(value) {
+        return '₺' + value.toLocaleString('tr-TR');
+        }
+        }
+        }
+        },
+        plugins: {
+        legend: {
+        display: true,
+        position: 'top'
+        },
+        tooltip: {
+        callbacks: {
+        label: function(context) {
+        return 'Tutar: ₺' + context.raw.toLocaleString('tr-TR');
+        }
+        }
+        }
+        }
+        }
+        });
+        });
+    </script>
+}

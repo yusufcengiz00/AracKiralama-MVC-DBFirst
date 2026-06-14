@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - Araç Takip Sistemi</title>
+    <link href="~/admintemplate/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="sb-nav-fixed">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" asp-controller="Admin" asp-action="Index">
+            Araç Kiralama Sistemi
+        </a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <div class="sb-sidenav-menu-heading">
+                            Yönetim
+                        </div>
+
+                        <a class="nav-link" asp-controller="Customer" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Müşteriler
+                        </a>
+
+                        <a class="nav-link" asp-controller="Vehicle" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                            Araçlar
+                        </a>
+
+                        <a class="nav-link" asp-controller="Rental" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-key"></i></div>
+                            Kiralamalar
+                        </a>
+
+                        <a class="nav-link" asp-controller="Payment" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                            Ödemeler
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading">
+                            Analizler
+                        </div>
+
+                        <a class="nav-link" asp-controller="İstatistik" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                            İstatistikler
+                        </a>
+
+                        <a class="nav-link" asp-controller="Rapor" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            Finansal Raporlar
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="sb-sidenav-footer">
+                    <div class="small">Araç Takip Sistemi</div>
+                    Yönetim Paneli
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">
+                        @ViewData["Title"]
+                    </h1>
+                    <hr />
+                    @RenderBody()
+                </div>
+            </main>
+
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">
+                            &copy; @DateTime.Now.Year Araç Takip Sistemi
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/admintemplate/js/scripts.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿@model CarRentalManagementSystem_DBFirst.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Araç Silme Onayı";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Araç Yönetimi</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Panel</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Araçlar</a></li>
+        <li class="breadcrumb-item active">Aracı Sil</li>
+    </ol>
+
+    <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+        <i class="fas fa-exclamation-triangle me-2 fs-4"></i>
+        <div>
+            <strong>Dikkat!</strong> Bu aracı silmek üzeresiniz. Bu işlem geri alınamaz ve eğer araç geçmiş kiralama kayıtlarında (Rentals) kullanılıyorsa veritabanı kısıtlamaları (Foreign Key) nedeniyle hata alabilirsiniz.
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow">
+        <div class="card-header bg-danger text-white fw-bold">
+            <i class="fas fa-trash me-1"></i>
+            Silme Onayı: @Model.Brand @Model.Model (@Model.PlateNumber)
+        </div>
+        <div class="card-body">
+            <h5 class="card-title mb-4 text-muted">Aşağıdaki araca ait tüm kayıtlar silinecektir:</h5>
+
+            <div class="row bg-light p-3 rounded border">
+                <div class="col-md-6 border-end">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-secondary">Marka:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.Brand</dd>
+
+                        <dt class="col-sm-4 text-secondary">Model:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.Model</dd>
+
+                        <dt class="col-sm-4 text-secondary">Model Yılı:</dt>
+                        <dd class="col-sm-8">@Model.Year</dd>
+
+                        <dt class="col-sm-4 text-secondary">Plaka:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary">@Model.PlateNumber</span></dd>
+                    </dl>
+                </div>
+                <div class="col-md-6 ps-4">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-secondary">Renk:</dt>
+                        <dd class="col-sm-8">@Model.Color</dd>
+
+                        <dt class="col-sm-4 text-secondary">Kilometre:</dt>
+                        <dd class="col-sm-8">@string.Format("{0:N0} KM", Model.Kilometer)</dd>
+
+                        <dt class="col-sm-4 text-secondary">Günlük Fiyat:</dt>
+                        <dd class="col-sm-8 fw-bold text-danger">@string.Format("{0:C2}", Model.DailyPrice)</dd>
+
+                        <dt class="col-sm-4 text-secondary">Durum:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Status == true)
+                            {
+                                <span class="badge bg-success">Müsait</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Bakımda / Meşgul</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post" class="mt-4 text-end">
+                <input type="hidden" asp-for="VehicleId" name="id" />
+
+                <a asp-action="Index" class="btn btn-secondary me-2">
+                    <i class="fas fa-arrow-left"></i> Hayır, Vazgeç ve Listeye Dön
+                </a>
+                <button type="submit" class="btn btn-danger px-4 fw-bold">
+                    <i class="fas fa-check-circle"></i> Evet, Bu Aracı Sil
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

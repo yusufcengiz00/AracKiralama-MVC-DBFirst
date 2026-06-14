@@ -1,0 +1,101 @@
+﻿@model IEnumerable<CarRentalManagementSystem_DBFirst.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Araç Listesi";
+}
+
+<div class="container-fluid px-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Panel</a></li>
+        <li class="breadcrumb-item active">Araçlar</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-table me-1"></i>
+                Mevcut Araçların Listesi
+            </div>
+            <a asp-action="Create" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Yeni Araç Ekle
+            </a>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="mb-3">
+                <div class="input-group style="max-width: 400px;">
+                    <input type="text" name="searchString" class="form-control"
+                           placeholder="Plakaya göre ara..." value="@ViewBag.CurrentFilter" />
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fas fa-search"></i> Ara
+                    </button>
+                    @if (!string.IsNullOrEmpty(ViewBag.CurrentFilter))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-danger">Filtreyi Temizle</a>
+                    }
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" id="datatablesSimple" width="100%" cellspacing="0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Marka</th>
+                            <th>Model</th>
+                            <th>Yıl</th>
+                            <th>Plaka No</th>
+                            <th>Renk</th>
+                            <th>Kilometre</th>
+                            <th>Günlük Fiyat</th>
+                            <th>Durum</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Brand</td>
+                                    <td>@item.Model</td>
+                                    <td>@item.Year</td>
+                                    <td><span class="badge bg-secondary">@item.PlateNumber</span></td>
+                                    <td>@item.Color</td>
+                                    <td>@string.Format("{0:N0} KM", item.Kilometer)</td>
+                                    <td>@string.Format("{0:C2}", item.DailyPrice)</td>
+                                    <td>
+                                        @if (item.Status == true)
+                                        {
+                                            <span class="badge bg-success">Musait</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Kirada / Bakımda</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.VehicleId" class="btn btn-warning btn-sm" title="Güncelle">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.VehicleId" class="btn btn-danger btn-sm" title="Sil">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9" class="text-center text-muted">Aradığınız kriterlere uygun araç bulunamadı.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

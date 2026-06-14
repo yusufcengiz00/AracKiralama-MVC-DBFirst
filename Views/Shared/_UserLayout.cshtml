@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Araç Yönetim ve Kiralama Sistemi" />
+    <meta name="author" content="" />
+    <title>Araç Kiralama</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    
+
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="~/usertemplate/css/styles.css" rel="stylesheet" />
+    <link href="~/usertemplate/css/custom.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top">AraçKiralamaNeKolay.com</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#page-top">Anasayfa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Araçlarımız</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">İletişim</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary text-white px-3 py-2" asp-controller="Admin" asp-action="Index">
+                            <i class="fas fa-user-shield me-1"></i> Admin Giriş
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead">
+        <div class="container">
+            <div class="masthead-subheading">Araç Kiralama Sistemine Hoş Geldiniz</div>
+            <div class="masthead-heading text-uppercase">Geniş Araç Filomuzu İnceleyin</div>
+            <a class="btn btn-primary btn-xl text-uppercase" href="#portfolio">Araçları Gör</a>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        @RenderBody()
+    </div>
+
+    <section class="page-section bg-light" id="portfolio">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Öne Çıkan Araçlar</h2>
+                <h3 class="section-subheading text-muted">Sistemde kayıtlı popüler araç modellerimiz.</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-car fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="~/usertemplate/assets/img/araçlar/bmw_m4.jpg" alt="..." />
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">BMW M4</div>
+                            <div class="portfolio-caption-subheading text-muted">2023 Model - Spor</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-car fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="~/usertemplate/assets/img/araçlar/toyota_corolla.jpg" alt="..." />
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">Toyota Corolla</div>
+                            <div class="portfolio-caption-subheading text-muted">2022 Model - Sedan</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 mb-4">
+                    <div class="portfolio-item">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-car fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="~/usertemplate/assets/img/araçlar/mercedes_c200.jpg" alt="..." />
+                        <div class="portfolio-caption">
+                            <div class="portfolio-caption-heading">Mercedes C200</div>
+                            <div class="portfolio-caption-subheading text-muted">2023 Model - Konfor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Bize Ulaşın</h2>
+                <h3 class="section-subheading text-white">Sorularınız ve destek talepleriniz için form doldurabilirsiniz.</h3>
+            </div>
+            <form id="contactForm">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <input class="form-control" id="name" type="text" placeholder="Adınız Soyadınız *" required />
+                        </div>
+                        <div class="form-group mb-3">
+                            <input class="form-control" id="email" type="email" placeholder="E-Posta Adresiniz *" required />
+                        </div>
+                        <div class="form-group mb-md-0">
+                            <input class="form-control" id="phone" type="tel" placeholder="Telefon Numaranız *" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-textarea mb-md-0 h-100">
+                            <textarea class="form-control h-100" id="message" placeholder="Mesajınız *" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">Mesaj Gönder</button></div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; AraçlarDB 2026</div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a class="link-dark text-decoration-none me-3" href="#!">Gizlilik Politikası</a>
+                    <a class="link-dark text-decoration-none" href="#!">Kullanım Şartları</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+ 
+    <script src="js/scripts.js"></script>
+</body>
+</html>
