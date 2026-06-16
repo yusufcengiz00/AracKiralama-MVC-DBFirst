@@ -15,7 +15,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
 
         public IActionResult Index(string searchString)
         {
-            // CRITICAL DÜZELTME: .Include(r => r.Customer) ve .Include(r => r.Vehicle) ekledik!
             var kiralama = _context.Rentals
                 .Include(r => r.Customer)
                 .Include(r => r.Vehicle)
@@ -73,7 +72,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             var kiralama = _context.Rentals.Find(id);
             if (kiralama == null)
             {
-                return NotFound(); // Kiralama bulunamadıysa 404 hatası ver
+                return NotFound(); 
             }
 
             // Müşteri listesini hazırlayıp ViewBag'e atıyoruz
@@ -92,7 +91,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                 {
                     Value = v.VehicleId.ToString(),
                     Text = v.Brand + " " + v.Model + " (" + v.PlateNumber + ") - " + v.DailyPrice + " ₺",
-                    Selected = (v.VehicleId == kiralama.VehicleId) // Mevcut araç seçili gelsin
+                    Selected = (v.VehicleId == kiralama.VehicleId) 
                 }).ToList();
 
             return View(kiralama);
@@ -121,7 +120,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                 return NotFound();
             }
 
-            // Klasörün adının "Rental" olduğundan emin olarak View'ı tetikliyoruz
             return View(kiralama);
         }
 

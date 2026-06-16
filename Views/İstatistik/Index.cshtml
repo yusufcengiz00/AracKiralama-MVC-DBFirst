@@ -26,12 +26,11 @@
         document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById('gelirGrafigi').getContext('2d');
 
-        // Controller'dan gelen tekil ödeme verileri
         var etiketler = [@Html.Raw(ViewBag.GrafikEtiketler)];
         var tutarlar = [@ViewBag.GrafikTutarlar];
 
         var myChart = new Chart(ctx, {
-        type: 'line', // Çizgi grafiği
+        type: 'line', 
         data: {
         labels: etiketler,
         datasets: [{
@@ -40,8 +39,8 @@
         borderColor: 'rgba(13, 110, 253, 1)',
         backgroundColor: 'rgba(13, 110, 253, 0.15)',
         borderWidth: 2,
-        tension: 0.3, // Çizgiyi yumuşatır
-        fill: true, // Çizgi altını hafif doldurur
+        tension: 0.3, 
+        fill: true, 
         pointBackgroundColor: 'rgba(13, 110, 253, 1)',
         pointRadius: 4,
         pointHoverRadius: 6

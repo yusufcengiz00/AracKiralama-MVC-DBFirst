@@ -13,7 +13,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             _context = dbContext;
         }
 
-        // 1. MÜŞTERİ LİSTELEME & ARAMA (INDEX)
         public IActionResult Index(string searchString)
         {
             // Veritabanındaki müşterileri sorgu olarak hazırlıyoruz
@@ -34,14 +33,12 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(musteriler.ToList());
         }
 
-        // 2. YENİ MÜŞTERİ EKLEME SAYFASI (GET)
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // 3. YENİ MÜŞTERİ EKLEME İŞLEMİ (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Customer customer)
@@ -55,7 +52,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(customer);
         }
 
-        // 4. MÜŞTERİ DÜZENLEME SAYFASI (GET)
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -67,7 +63,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(customer);
         }
 
-        // 5. MÜŞTERİ DÜZENLEME İŞLEMİ (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Customer customer)
@@ -81,7 +76,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(customer);
         }
 
-        // 6. MÜŞTERI SİLME ONAY SAYFASI (GET)
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -93,7 +87,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(customer);
         }
 
-        // 7. GERÇEK SİLME İŞLEMİ (POST)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)

@@ -14,7 +14,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             _context = dbContext;
         }
 
-        // 1. LİSTELEME EKRANI (INDEX)
         public IActionResult Index(string searchString)
         {
             // Ödemeleri çekerken bağlı olduğu Rental (Kiralama) ve onun da bağlı olduğu Müşteri/Araç bilgilerini de çekiyoruz
@@ -36,11 +35,9 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            // DÜZELTME: Doğru değişken ismi olan 'odemeler' listesini gönderiyoruz
             return View(odemeler.ToList());
         }
 
-        // 2. YENİ ÖDEME EKLEME (GET)
         [HttpGet]
         public IActionResult Create()
         {
@@ -57,7 +54,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View();
         }
 
-        // 3. YENİ ÖDEME EKLEME (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Payment payment)
@@ -82,7 +78,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(payment);
         }
 
-        // 4. ÖDEME DÜZENLEME (GET)
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -92,7 +87,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                 return NotFound();
             }
 
-            // Kiralama listesini hazırlayıp mevcut seçili olanı işaretliyoruz
             ViewBag.RentalId = _context.Rentals
                 .Include(r => r.Customer)
                 .Include(r => r.Vehicle)
@@ -106,7 +100,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(odeme);
         }
 
-        // 5. ÖDEME DÜZENLEME (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Payment payment)
@@ -130,7 +123,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(payment);
         }
 
-        // 6. ÖDEME SİLME ONAY (GET)
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -150,7 +142,6 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             return View(odeme);
         }
 
-        // 7. GERÇEK SİLME İŞLEMİ (POST)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
