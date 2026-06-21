@@ -20,6 +20,7 @@
                 <i class="fas fa-plus"></i> Yeni Araç Ekle
             </a>
         </div>
+       
 
         <div class="card-body">
             <form asp-action="Index" method="get" class="mb-3">
@@ -98,4 +99,14 @@
             </div>
         </div>
     </div>
+</div>
+<br /><br />
+<div class="card mb-4">
+    <a asp-controller="Vehicle" asp-action="ExportToPdf" class="btn btn-danger">
+        <i class="fa fa-file-pdf"></i> PDF Olarak İndir
+    </a>
+    <!-- YENİ: Excel Butonumuz -->
+    <a asp-controller="Vehicle" asp-action="ExportToExcel" class="btn btn-success">
+        <i class="fa fa-file-excel"></i> Excel Olarak İndir
+    </a>
 </div>
