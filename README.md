@@ -64,11 +64,60 @@ Modern arayüzlü ve performans odaklı, ASP.NET Core MVC tabanlı bir **Araç K
 
 ---
 
-## 📁 Dosya Yapısı
+## 📸 Uygulama Görselleri
 
-*   `Controllers/` - Uygulamanın iş mantığını ve raporlama metotlarını içeren denetleyiciler.
-*   `Models/` - AppDbContext ve EF veritabanı entity sınıfları.
-*   `Views/` - CSHTML formatındaki Razor sayfaları ve Layout bileşenleri.
-*   `wwwroot/` - CSS, JS, görsel varlıklar ve şablon kütüphaneleri.
-    *   `usertemplate/css/custom.css` - Müşteri paneli özel premium stil tanımları.
-    *   `admintemplate/css/custom-admin.css` - Admin paneli modern UI tasarım tanımları.
+### Arayüz
+
+<p align="center">
+<img width="1228" height="652" alt="image" src="https://github.com/user-attachments/assets/976a1055-c966-475f-b72a-e6a1baa80892" />
+</p>
+
+---
+
+### Admin Panel Giriş Ekranı
+
+<p align="center">
+<img width="1498" height="940" alt="image" src="https://github.com/user-attachments/assets/ea581182-56f6-47de-b9d7-9099a8872051" />
+</p>
+
+---
+
+### Müşteri Yönetim Ekranı
+
+<p align="center">
+   <img width="1463" height="903" alt="image" src="https://github.com/user-attachments/assets/e6777c1f-ec6d-4630-981d-fa7657108ed3" />
+</p>
+
+---
+
+### Araç Yönetim Ekranı
+
+<p align="center">
+<img width="1637" height="902" alt="image" src="https://github.com/user-attachments/assets/957ab230-3f3a-4da8-9e30-6773749da13b" />
+</p>
+
+---
+
+### Kiralama İşlemleri Yönetim Ekranı
+
+<p align="center">
+ <img width="1642" height="905" alt="image" src="https://github.com/user-attachments/assets/335ebc8f-d751-4d65-97c0-5ef6adc8902c" />
+
+</p>
+
+---
+
+### Ödeme İşlemleri Yönetim Ekranı
+
+<p align="center">
+  <img width="1627" height="857" alt="image" src="https://github.com/user-attachments/assets/700cda8f-8f40-494c-a74c-c325d388836d" />
+</p>
+
+---
+
+### Sistem Raporu Ekranı
+
+<p align="center">
+<img width="1650" height="855" alt="image" src="https://github.com/user-attachments/assets/fd443c84-14fd-4d29-990b-35c22695a7a9" />
+</p>
+
