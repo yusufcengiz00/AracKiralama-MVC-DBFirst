@@ -1,4 +1,4 @@
-﻿using CarRentalManagementSystem_DBFirst.Models;
+using CarRentalManagementSystem_DBFirst.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
@@ -146,11 +146,11 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
 
         public IActionResult Index(string searchString)
         {
-            // Veritabanındaki müşterileri sorgu olarak hazırlıyoruz
+            // Müşterileri listele
             var musteriler = from c in _context.Customers
                              select c;
 
-            // Eğer arama kutusuna isim veya soyisim yazılmışsa filtrele
+            // Arama filtresi
             if (!string.IsNullOrEmpty(searchString))
             {
                 musteriler = musteriler.Where(s =>
@@ -158,7 +158,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     s.LastName.Contains(searchString));
             }
 
-            // Arama kelimesini kutuda çakılı kalsın diye ViewBag ile gönderiyoruz
+            // Filtre değerini koru
             ViewBag.CurrentFilter = searchString;
 
             return View(musteriler.ToList());

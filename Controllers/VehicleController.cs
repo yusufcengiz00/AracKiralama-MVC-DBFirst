@@ -1,4 +1,4 @@
-﻿using CarRentalManagementSystem_DBFirst.Models;
+using CarRentalManagementSystem_DBFirst.Models;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using QuestPDF.Fluent;
@@ -161,7 +161,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] // CSRF Saldırılarına karşı güvenlik önlemi
+        [ValidateAntiForgeryToken] // CSRF güvenliği
         public IActionResult Create(Vehicle vehicle)
         {
             _context.Vehicles.Add(vehicle);

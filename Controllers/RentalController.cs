@@ -1,4 +1,4 @@
-﻿using CarRentalManagementSystem_DBFirst.Models;
+using CarRentalManagementSystem_DBFirst.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
@@ -20,10 +20,10 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         [HttpGet]
         public IActionResult ExportToPdf()
         {
-            // QuestPDF Lisans Aktivasyonu
+            // QuestPDF Lisansı
             QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
-            // Veritabanı sorgusunu güvenli anonim tipe eşliyoruz
+            // Verileri anonim tipe eşle
             var products = _context.Rentals
                 .Select(r => new
                 {
@@ -45,13 +45,13 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontSize(10).FontFamily("Arial"));
 
-                    // Üst Bilgi (Header)
+                    // Üst bilgi
                     page.Header()
                         .PaddingBottom(0.5f, Unit.Centimetre)
                         .Text("Kiralama İşlemleri Raporu")
                         .SemiBold().FontSize(18).FontColor(Colors.Blue.Medium);
 
-                    // Tablo İçeriği
+                    // Tablo içeriği
                     page.Content().Table(table =>
                     {
                         table.ColumnsDefinition(columns =>
@@ -64,7 +64,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                             columns.ConstantColumn(70);  // Toplam Tutar
                         });
 
-                        // Tablo Başlıkları
+                        // Tablo başlıkları
                         table.Header(header =>
                         {
                             header.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("ID").Bold();
@@ -75,14 +75,14 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                             header.Cell().Background(Colors.Grey.Lighten2).Padding(5).Text("Toplam Tutar").Bold();
                         });
 
-                        // Veri Döngüsü 
+                        // Veri döngüsü
                         foreach (var item in products)
                         {
                             table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(5).Text(item.RentalId.ToString());
                             table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(5).Text(item.Musteri);
                             table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(5).Text(item.Arac);
 
-                            // Nullable Tarih Kontrolleri
+                            // Tarih kontrolleri
                             table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(5).Text(item.Baslangic != null ? item.Baslangic.Value.ToString("dd.MM.yyyy") : "-");
                             table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten3).Padding(5).Text(item.Bitis != null ? item.Bitis.Value.ToString("dd.MM.yyyy") : "-");
 
@@ -90,7 +90,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                         }
                     });
 
-                    // Alt Bilgi (Footer)
+                    // Alt bilgi
                     page.Footer()
                         .AlignCenter()
                         .Text(x =>
@@ -126,7 +126,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
             {
                 var worksheet = package.Workbook.Worksheets.Add("Kiralama Listesi");
 
-                // Tablo Başlıkları (1. Satır)
+                // Tablo başlıkları
                 worksheet.Cells[1, 1].Value = "Kiralama ID";
                 worksheet.Cells[1, 2].Value = "Müşteri Adı Soyadı";
                 worksheet.Cells[1, 3].Value = "Araç Bilgisi";
@@ -134,7 +134,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                 worksheet.Cells[1, 5].Value = "Bitiş Tarihi";
                 worksheet.Cells[1, 6].Value = "Toplam Tutar";
 
-                // Başlık Satırını Şıklaştırma
+                // Başlığı biçimlendir
                 using (var range = worksheet.Cells[1, 1, 1, 6])
                 {
                     range.Style.Font.Bold = true;
@@ -144,7 +144,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 }
 
-                // Verileri Excel Satırlarına Basma
+                // Verileri yaz
                 int rowNumber = 2;
                 foreach (var item in products)
                 {
@@ -152,7 +152,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     worksheet.Cells[rowNumber, 2].Value = item.Musteri;
                     worksheet.Cells[rowNumber, 3].Value = item.Arac;
 
-                    // Nullable Tarih Kontrolleri
+                    // Tarih kontrolleri
                     worksheet.Cells[rowNumber, 4].Value = item.Baslangic != null ? item.Baslangic.Value.ToString("dd.MM.yyyy") : "-";
                     worksheet.Cells[rowNumber, 5].Value = item.Bitis != null ? item.Bitis.Value.ToString("dd.MM.yyyy") : "-";
 
@@ -161,7 +161,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     rowNumber++;
                 }
 
-                // Sütun genişliklerini içeriğe göre otomatik ayarla
+                // Sütun genişliklerini ayarla
                 if (worksheet.Dimension != null)
                 {
                     worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
@@ -197,7 +197,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            // Müşterileri "Ad Soyad" şeklinde birleştirerek SelectList'e gönderiyoruz
+            // Müşterileri listele
             ViewBag.CustomerId = _context.Customers
                 .Select(c => new { c.CustomerId, FullName = c.FirstName + " " + c.LastName })
                 .Select(c => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
@@ -206,7 +206,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     Text = c.FullName
                 }).ToList();
 
-            // Sadece "Müsait" (Status == true) olan araçları listeliyoruz
+            // Müsait araçları listele
             ViewBag.VehicleId = _context.Vehicles
                 .Where(v => v.Status == true)
                 .Select(v => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
@@ -219,7 +219,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] // CSRF Saldırılarına karşı güvenlik önlemi
+        [ValidateAntiForgeryToken] // CSRF güvenliği
         public IActionResult Create(Rental rental)
         {
             _context.Rentals.Add(rental);
@@ -236,17 +236,17 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                 return NotFound(); 
             }
 
-            // Müşteri listesini hazırlayıp ViewBag'e atıyoruz
+            // Müşterileri yükle
             ViewBag.CustomerId = _context.Customers
                 .Select(c => new { c.CustomerId, FullName = c.FirstName + " " + c.LastName })
                 .Select(c => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
                 {
                     Value = c.CustomerId.ToString(),
                     Text = c.FullName,
-                    Selected = (c.CustomerId == kiralama.CustomerId) // Mevcut müşteri seçili gelsin
+                    Selected = (c.CustomerId == kiralama.CustomerId) // Seçili müşteri
                 }).ToList();
 
-            // Araç listesini hazırlayıp ViewBag'e atıyoruz
+            // Araçları yükle
             ViewBag.VehicleId = _context.Vehicles
                 .Select(v => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
                 {
@@ -270,7 +270,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            // Eager Loading kullanarak ilişkili Customer ve Vehicle tablolarını da çekiyoruz
+            // İlişkili tabloları yükle
             var kiralama = _context.Rentals
                 .Include(r => r.Customer)
                 .Include(r => r.Vehicle)

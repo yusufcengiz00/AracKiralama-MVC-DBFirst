@@ -1,4 +1,4 @@
-﻿using CarRentalManagementSystem_DBFirst.Models;
+using CarRentalManagementSystem_DBFirst.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +15,12 @@ namespace Project2_DBFirst.Controllers
 
         public IActionResult Index()
         {
-            // Veritabanından canlı sayıları çekiyoruz
+            // İstatistikleri yükle
             ViewBag.TotalVehicles = _context.Vehicles.Count();
             ViewBag.TotalCustomers = _context.Customers.Count();
             ViewBag.TotalRentals = _context.Rentals.Where(r => r.RentalStatus == "Aktif").Count();
 
-            // Toplam Geliri hesaplıyoruz (Amount toplamı)
+            // Toplam geliri hesapla
             ViewBag.TotalRevenue = _context.Payments.Sum(p => (decimal?)p.Amount) ?? 0;
             return View();
         }

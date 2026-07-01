@@ -1,4 +1,4 @@
-﻿using CarRentalManagementSystem_DBFirst.Models;
+using CarRentalManagementSystem_DBFirst.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -158,7 +158,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         }
         public IActionResult Index(string searchString)
         {
-            // Ödemeleri çekerken bağlı olduğu Rental (Kiralama) ve onun da bağlı olduğu Müşteri/Araç bilgilerini de çekiyoruz
+            // Ödemeleri ve ilişkileri yükle
             var odemeler = _context.Payments
                 .Include(p => p.Rental)
                     .ThenInclude(r => r.Customer)
@@ -166,7 +166,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                     .ThenInclude(r => r.Vehicle)
                 .AsQueryable();
 
-            // Eğer arama kutusuna müşteri adı, soyadı veya plaka yazıldıysa filtrele
+            // Arama filtresi
             if (!String.IsNullOrEmpty(searchString))
             {
                 odemeler = odemeler.Where(s =>
@@ -183,7 +183,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            // Ödemenin hangi kiralamaya ait olduğunu seçtirmek için aktif kiralamaları listeliyoruz
+            // Aktif kiralamaları listele
             ViewBag.RentalId = _context.Rentals
                 .Include(r => r.Customer)
                 .Include(r => r.Vehicle)
@@ -207,7 +207,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Eğer validasyon hatası varsa listeyi tekrar doldurup sayfaya geri gönderiyoruz
+            // Hata durumunda listeyi yeniden doldur
             ViewBag.RentalId = _context.Rentals
                 .Include(r => r.Customer)
                 .Include(r => r.Vehicle)
@@ -268,7 +268,7 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            // Silme ekranında detaylı bilgi göstermek için tüm ilişkileri bağlıyoruz
+            // Silme detayı ve ilişkiler
             var odeme = _context.Payments
                 .Include(p => p.Rental)
                     .ThenInclude(r => r.Customer)

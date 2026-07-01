@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarRentalManagementSystem_DBFirst.Models.Vehicle>
+@model IEnumerable<CarRentalManagementSystem_DBFirst.Models.Vehicle>
 
 @{
     ViewData["Title"] = "Araç Listesi";
@@ -16,9 +16,17 @@
                 <i class="fas fa-table me-1"></i>
                 Mevcut Araçların Listesi
             </div>
-            <a asp-action="Create" class="btn btn-primary btn-sm">
-                <i class="fas fa-plus"></i> Yeni Araç Ekle
-            </a>
+            <div class="d-flex gap-2">
+                <a asp-action="ExportToPdf" class="btn btn-outline-danger btn-sm">
+                    <i class="fa fa-file-pdf"></i> PDF
+                </a>
+                <a asp-action="ExportToExcel" class="btn btn-outline-success btn-sm">
+                    <i class="fa fa-file-excel"></i> Excel
+                </a>
+                <a asp-action="Create" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Yeni Araç Ekle
+                </a>
+            </div>
         </div>
        
 
@@ -100,13 +108,4 @@
         </div>
     </div>
 </div>
-<br /><br />
-<div class="card mb-4">
-    <a asp-controller="Vehicle" asp-action="ExportToPdf" class="btn btn-danger">
-        <i class="fa fa-file-pdf"></i> PDF Olarak İndir
-    </a>
-    <!-- YENİ: Excel Butonumuz -->
-    <a asp-controller="Vehicle" asp-action="ExportToExcel" class="btn btn-success">
-        <i class="fa fa-file-excel"></i> Excel Olarak İndir
-    </a>
-</div>
+

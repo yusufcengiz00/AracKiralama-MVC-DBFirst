@@ -1,4 +1,4 @@
-﻿using CarRentalManagementSystem_DBFirst.Models;
+using CarRentalManagementSystem_DBFirst.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,28 +17,28 @@ namespace CarRentalManagementSystem_DBFirst.Controllers
 
         public IActionResult Index()
         {
-            // Son yapılan 10 ödemeyi tekil olarak çekiyoruz (Müşteri ve Araç bilgisi dahil)
+            // Son 10 ödeme ve ilişkiler
             var sonOdemeler = _context.Payments
                 .Include(p => p.Rental)
                     .ThenInclude(r => r.Customer)
                 .Include(p => p.Rental)
                     .ThenInclude(r => r.Vehicle)
                 .Where(p => p.Amount != null)
-                .OrderBy(p => p.PaymentDate) // Kronolojik sıra
-                .Take(10) // Son 10 ödeme
+                .OrderBy(p => p.PaymentDate) // Kronolojik
+                .Take(10) // Son 10
                 .ToList();
 
-            // Grafik altında görünecek etiketler (Örn: "Yusuf C. - Hyundai I20")
+            // Grafik etiketleri
             var etiketlerListesi = sonOdemeler.Select(p =>
                 p.Rental != null && p.Rental.Customer != null && p.Rental.Vehicle != null
                 ? $"'{p.Rental.Customer.FirstName} {p.Rental.Customer.LastName[0]}. ({p.Rental.Vehicle.Brand})'"
                 : "'Bilinmeyen Ödeme'"
             ).ToArray();
 
-            // Her ödemenin tutarı
+            // Ödeme tutarları
             var tutarlarListesi = sonOdemeler.Select(p => p.Amount ?? 0).ToArray();
 
-            // Hiç ödeme yoksa grafik çökmesin diye boş değer tanımlıyoruz
+            // Boş veri koruması
             if (etiketlerListesi.Length == 0)
             {
                 etiketlerListesi = new string[] { "'Kayıt Yok'" };

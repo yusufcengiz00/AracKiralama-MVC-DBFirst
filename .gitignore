@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Custom user ignore rules
+.vscode/
+.idea/
+*.log
+appsettings.local.json
+node_modules/
+.env
+.DS_Store

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +28,7 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.HasKey(e => e.CustomerId);
-            // KRİTİK GÜNCELLEME: CustomerID'nin otomatik artacağını belirttik
+            // Otomatik artan ID
             entity.Property(e => e.CustomerId)
                 .HasColumnName("CustomerID")
                 .ValueGeneratedOnAdd();
@@ -50,7 +50,7 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<Payment>(entity =>
         {
             entity.HasKey(e => e.PaymentId);
-            // KRİTİK GÜNCELLEME: PaymentId'nin otomatik artacağını belirttik
+            // Otomatik artan ID
             entity.Property(e => e.PaymentId)
                 .ValueGeneratedOnAdd();
 
@@ -67,7 +67,7 @@ public partial class AppDbContext : DbContext
         {
             entity.HasKey(e => e.RentalId);
 
-            // KRİTİK GÜNCELLEME: RentalID'nin otomatik artacağını belirttik
+            // Otomatik artan ID
             entity.Property(e => e.RentalId)
                 .HasColumnName("RentalID")
                 .ValueGeneratedOnAdd();
@@ -93,7 +93,7 @@ public partial class AppDbContext : DbContext
         {
             entity.HasKey(e => e.VehicleId);
 
-            // KRİTİK GÜNCELLEME: VehicleID'nin otomatik artacağını belirttik
+            // Otomatik artan ID
             entity.Property(e => e.VehicleId)
                 .HasColumnName("VehicleID")
                 .ValueGeneratedOnAdd();
