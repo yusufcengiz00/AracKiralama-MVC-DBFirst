@@ -74,6 +74,11 @@ Modern arayüzlü ve performans odaklı, ASP.NET Core MVC tabanlı bir **Araç K
 
 ---
 
+### Arayüz
+<p align="center">
+<img width="1598" height="846" alt="image" src="https://github.com/user-attachments/assets/cd74d7fd-355f-4784-af30-e25253dd7dba" />
+</p>
+
 ### Admin Panel Giriş Ekranı
 
 <p align="center">
